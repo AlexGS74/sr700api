@@ -74,6 +74,7 @@ class Max31855kDevice(object):
             self.spi = None
 
     def find_connect(self):
+        return True;
         """ Looks for an FTDI chip with Vendor IS 0x0403 and Product ID
             0x6002, then verifies that the device is a bus pirate,
             before returning success/fail. """
