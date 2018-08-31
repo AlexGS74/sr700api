@@ -34,7 +34,6 @@ from flask_restful import Resource, Api, reqparse, request
 import logging
 from sr700api.version import __version__
 import freshroastsr700
-from sr700api.max31855kdevice import Max31855kDevice as bp
 from sr700api import utils as utils
 import logging
 logging.basicConfig(filename='sr700_restserver.log',level=logging.WARNING)
@@ -47,7 +46,6 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.CRITICAL)
 
 # hardware interface
-device_bt = bp()  # bean temperature probe
 device_sr700 = freshroastsr700.freshroastsr700(ext_sw_heater_drive=True)
 # attempt to connect to sr700 device, or connect
 # later if not plugged in yet...
@@ -445,18 +443,10 @@ def start_server(debug=False):
     Returns:
         True if successful, False otherwise.
     """
-    if(device_bt.find_connect()):
-
-        app.run(port=58700, debug=debug)
-        # this is a blocking call, will only return once exited
-        device_bt.disconnect()
-        device_sr700.sleep()
-        device_sr700.disconnect()
-        return True
-    # failed to connect to hardware
-    logging.error(
-        "restserver.start_server - failed to find temp probe HW, bailing.")
-    return False
+    app.run(port=58700, debug=debug)
+    # this is a blocking call, will only return once exited
+    device_sr700.sleep()
+    return True
 
 # this runs when invoked as a script, WE'RE DOING THIS.
 if __name__ == '__main__':

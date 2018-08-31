@@ -36,13 +36,6 @@ setup(
         'flask-restful>=0.3.6',
         'requests',
         'freshroastsr700>=0.2.4'
-        # 'pyBusPirateLite'
     ],
     scripts=['bin/sr700api']
-    # This requires git OAuth tokens to run,
-    # and requires pip install with --process-dependency-links option
-    # dependency_links=[
-    #     'git+https://{github_token}@github.com/juhasch/{package}.git/@{version}#egg={package}-0'
-    #     .format(github_token=github_token, package=pyBusPirateLite, version=master)
-    # ]
 )
